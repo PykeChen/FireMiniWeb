@@ -31,7 +31,8 @@ def wget(host):
     # Ignore the body, close the socket
     writer.close()
 
-
+# typea = asyncio.sleep(1)
+# print(type(typea))
 print('time = ', time.time(), len('11100100100100000111000110100110111110011101'))
 loop = asyncio.get_event_loop()
 tasks = [wget(host) for host in ['www.sina.com.cn', 'www.sohu.com', 'www.163.com']]
