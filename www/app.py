@@ -7,13 +7,20 @@ __author__ = 'Cpy'
 async web application.
 '''
 
-import logging;
+import sys
+
+import logging
 
 import asyncio, os, json, time
 from datetime import datetime
 
 from aiohttp import web
 from jinja2 import Environment, FileSystemLoader
+
+dirname = os.path.split(os.path.abspath(sys.argv[0]))[0]
+dir = dirname[:dirname.rindex('/', 0)]
+print(dir)
+sys.path.append(dir)
 
 import www.orm as orm
 from www.coroweb import add_routes, add_static
