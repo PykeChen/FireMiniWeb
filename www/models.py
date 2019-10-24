@@ -21,6 +21,13 @@ class User(Model):
     image = StringField(ddl='varchar(500)')
     created_at = FloatField(default=time.time)
 
+    def __init__(self, **kw):
+        super().__init__(**kw)
+        self.instanceTestField = "instanceStrFiled"
+
+    def customMethod(self, paramStr):
+        print('params' + str(paramStr))
+
 
 class Blog(Model):
     __table__ = 'blogs'
@@ -45,6 +52,5 @@ class Comment(Model):
     user_image = StringField(ddl='varchar(500)')
     content = TextField()
     created_at = FloatField(default=time.time)
-
 
 # print(next_id())

@@ -253,10 +253,3 @@ class Model(dict, metaclass=ModelMetaclass):
         if rows != 1:
             logging.warn('failed to remove by primary key: affected rows: %s' % rows)
 
-
-class User(Model):
-    # 定义类的属性到列的映射：
-    id = IntegerField('id', primary_key=True)
-    name = StringField('username')
-    email = StringField('email')
-    password = StringField('password')
