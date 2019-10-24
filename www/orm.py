@@ -23,7 +23,7 @@ async def create_pool(loop=None, **kw):
         user=kw['user'],
         password=kw['password'],
         db=kw['db'],
-        charset=kw.get('charset', 'utf8'),
+        charset=kw.get('charset', 'utf8mb4'),
         autocommit=kw.get('autocommit', True),
         maxsize=kw.get('maxsize', 10),
         minsize=kw.get('minsize', 1),
@@ -59,6 +59,8 @@ async def execute(sql, args, autocommit=True):
             await conn.begin()
         try:
             async with conn.cursor(aiomysql.DictCursor) as cur:
+                logging.error(sql.replace('?', '%s'))
+                logging.error(args)
                 await cur.execute(sql.replace('?', '%s'), args)
                 affected = cur.rowcount
             if not autocommit:
