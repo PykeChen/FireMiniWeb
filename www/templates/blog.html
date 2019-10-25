@@ -26,13 +26,26 @@ $(function () {
 
 </script>
 
+<style type="text/css">
+
+.blog_title {
+    margin-top:12px;
+}
+
+</style>
 {% endblock %}
 
 {% block content %}
 
 <div class="uk-width-medium-3-4">
-    <article class="uk-article">
-        <h2>{{ blog.name }}</h2>
+
+    <article class="uk-article blog_title">
+        <div>
+            <span style="font-size:26px" >{{ blog.name }}</span>
+            {% if __user__ and blog.user_id == __user__.id %}
+                <a href="/manage/blogs/edit?id={{ blog.id }}" class="uk-position-right">编辑</a>
+            {% endif %}
+        </div>
         <p class="uk-article-meta">发表于{{ blog.created_at|datetime }}</p>
         <p>{{ blog.html_content|safe }}</p>
     </article>

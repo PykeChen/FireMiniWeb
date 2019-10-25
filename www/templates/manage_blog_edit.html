@@ -7,9 +7,10 @@
 <script>
 var
     ID = '{{ id }}',
-    action = '{{ action }}';
+    action = '{{ action }}',
+    vm;//定义全局变量
 function initVM(blog) {
-    var vm = new Vue({
+    vm = new Vue({
         el: '#vm',
         data: blog,
         methods: {
@@ -21,7 +22,7 @@ function initVM(blog) {
                         $form.showFormError(err);
                     }
                     else {
-                        return location.assign('/api/blogs/' + r.id);
+                        return location.assign('/blog/' + r.id);
                     }
                 });
             }
