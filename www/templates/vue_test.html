@@ -1,0 +1,51 @@
+<html >
+<head>
+    <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+    <script>
+
+    </script>
+</head>
+<body>
+
+<div id="app">
+    {{ message }}
+</div>
+
+<div id="app-2">
+    <input v-bind:value="message"/>
+    <h4>鼠标悬停几秒钟查看此处动态绑定的提示信息！
+  </h4>
+
+    <my-component v-bind:message_for="page"></my-component>
+
+</div>
+
+
+<script>
+
+Vue.component('my-component', {
+  props: ['message_for'],
+  template:'<div>' +
+        '<span>{{ message_for.page_index }}</span>'+
+    '</div>'
+});
+
+var app = new Vue({
+    el: '#app',
+    data: {
+        message: 'Hello Vue111111!'
+    }
+});
+
+var app2 = new Vue({
+  el: '#app-2',
+  data: {
+    message: '页面加载于 ' + new Date().toLocaleString(),
+    page:{"page_index":2, "page_size":'123123'}
+  }
+})
+
+
+</script>
+</body>
+</html>

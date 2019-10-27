@@ -49,6 +49,8 @@ def init_jinja2(app, **kw):
         for name, f in filters.items():
             env.filters[name] = f
     app['__templating__'] = env
+    # env.variable_start_string = '[['
+    # env.variable_end_string = ']]'
 
 
 async def logger_factory(app, handler):

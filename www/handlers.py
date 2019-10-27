@@ -42,11 +42,18 @@ async def index_test(request):
     }
 
 
+@get('/vue')
+def vue_test():
+    return {
+        '__template__': 'vue_test.html'
+    }
+
+
 @get('/')
 async def index(*, page='1'):
     page_index = get_page_index(page)
     num = await Blog.findNumber('count(id)')
-    page = Page(num, page_index)
+    page = Page(num, page_index, page_size=5)
     if num == 0:
         blogs = []
     else:
