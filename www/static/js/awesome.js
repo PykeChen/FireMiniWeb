@@ -119,6 +119,7 @@ function parseQueryString() {
 }
 
 function gotoPage(i) {
+    console.log('gotoPage' + i)
     var r = parseQueryString();
     r.page = i;
     location.assign('?' + $.param(r));
@@ -359,12 +360,18 @@ if (typeof(Vue)!=='undefined') {
     });
     Vue.component('pagination', {
         props: ['page'],
+        methods: {
+            gotoPageF:function(i){
+                console.log('pagination goto ' + i);
+                gotoPage(i);
+            }
+        },
         template: '<div><ul class="uk-pagination">' +
                 '<li v-if="!page.has_previous" class="uk-disabled"><span><i class="uk-icon-angle-double-left"></i></span></li>' +
-                '<li v-if="page.has_previous"><a @click="\'gotoPage(\' + (page.page_index-1) + \')\'" href="#0"><i class="uk-icon-angle-double-left"></i></a></li>' +
+                '<li v-if="page.has_previous"><a @click="gotoPageF(page.page_index-1)" href="#0"><i class="uk-icon-angle-double-left"></i></a></li>' +
                 '<li class="uk-active"><span v-text="page.page_index"></span></li>' +
                 '<li v-if="!page.has_next" class="uk-disabled"><span><i class="uk-icon-angle-double-right"></i></span></li>' +
-                '<li v-if="page.has_next"><a @click="\'gotoPage(\' + (page.page_index+1) + \')\'" href="#0"><i class="uk-icon-angle-double-right"></i></a></li>' +
+                '<li v-if="page.has_next"><a @click="gotoPageF(page.page_index+1)" href="#0"><i class="uk-icon-angle-double-right"></i></a></li>' +
             '</ul></div>'
     });
 }
