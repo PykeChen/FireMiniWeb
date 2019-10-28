@@ -6,6 +6,19 @@
 
 <script>
 var comment_url = '/api/blogs/{{ blog.id }}/comments';
+var vm;
+function initVM(data){
+    vm = new Vue({
+        el:'#vm',
+        data:{
+            custom_user:data,
+            debug:false
+        },
+        methods:{
+        }
+    });
+}
+
 $(function () {
     var $form = $('#form-comment');
     $form.submit(function (e) {
@@ -22,6 +35,9 @@ $(function () {
             refresh();
         });
     });
+
+    initVM(JSON.parse('{"item_count":3}'));
+
 });
 
 </script>
@@ -37,8 +53,7 @@ $(function () {
 
 {% block content %}
 
-<div class="uk-width-medium-3-4">
-
+<div class="uk-width-medium-3-4" id="vm">
     <article class="uk-article blog_title">
         <div>
             <span style="font-size:26px" >{{ blog.name }}</span>
@@ -49,6 +64,7 @@ $(function () {
         <p class="uk-article-meta">发表于{{ blog.created_at|datetime }}</p>
         <p>{{ blog.html_content|safe }}</p>
     </article>
+    <input v-if="debug" v-model="custom_user.item_count">
 
     <hr class="uk-article-divider">
 

@@ -127,6 +127,7 @@ class RequestHandler(object):
                     kw = dict()
                     for k, v in parse.parse_qs(qs, True).items():
                         kw[k] = v[0]
+        # logging.error(request.match_info)
         if kw is None:
             kw = dict(**request.match_info)
         else:

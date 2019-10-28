@@ -139,6 +139,11 @@ async def response_factory(app, handler):
 
 
 def datetime_filter(t):
+    """
+    配置jinjia2的过滤器-时间
+    :param t:
+    :return:
+    """
     delta = int(time.time() - t)
     if delta < 60:
         return u'1分钟前'
@@ -152,12 +157,23 @@ def datetime_filter(t):
     return u'%s年%s月%s日' % (dt.year, dt.month, dt.day)
 
 
+def json_filter(markObj):
+    """
+    配置jinjia2的过滤器-转换Json
+    :param markObj:
+    :return:
+    """
+    json_str = json.dumps(markObj.__dict__)
+    logging.error('This=====%s' % json_str)
+    return json_str
+
+
 async def init(loop):
     await orm.create_pool(loop=loop, host='127.0.0.1', port=3306, user='cpy', password='wawj', db='awesome')
     app = web.Application(loop=loop, middlewares=[
         logger_factory, auth_factory, response_factory
     ])
-    init_jinja2(app, filters=dict(datetime=datetime_filter))
+    init_jinja2(app, filters=dict(datetime=datetime_filter, to_json=json_filter))
     add_routes(app, 'handlers')
     add_static(app)
     srv = await loop.create_server(app.make_handler(), '127.0.0.1', 9000)
